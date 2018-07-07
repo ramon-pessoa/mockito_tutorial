@@ -250,3 +250,32 @@ public class MathApplicationTester {
    }
 }
 ```
+
+### 10) Reset a mock so that it can be reused later: reset()
+
+Mockito provides the capability to a reset a mock so that it can be reused later. Take a look at the following code snippet.
+
+```java
+//reset mock
+reset(calcService);
+```
+
+Here we've reset mock object. MathApplication makes use of calcService and after reset the mock, using mocked method will fail the test.
+
+```java
+@Test
+    public void testAddAndSubtract(){
+
+        //add the behavior to add numbers
+        when(calcService.add(20.0,10.0)).thenReturn(30.0);
+
+        //test the add functionality
+        Assert.assertEquals(mathApplication.add(20.0, 10.0),30.0,0);
+
+        //reset the mock
+        reset(calcService);
+
+        //test the add functionality after resetting the mock
+        Assert.assertEquals(mathApplication.add(20.0, 10.0),30.0,0);
+    }
+```
