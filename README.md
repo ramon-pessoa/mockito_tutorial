@@ -293,6 +293,8 @@ double result = calcService.add(20.0,10.0);
 Assert.assertEquals(result,30.0,0);
 ```
 
+Here we're using given method of BDDMockito class instead of when method of mockito.
+
 ```java
 // @RunWith attaches a runner with the test class to initialize the test data
 @RunWith(MockitoJUnitRunner.class)
