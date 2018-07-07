@@ -278,6 +278,7 @@ public void testAddAndSubtract(){
    Assert.assertEquals(mathApplication.add(20.0, 10.0),30.0,0);
 }
 ```
+
 ### 11) Behavior Driven Development in Mockito
 
 Behavior Driven Development is a style of writing tests uses given, when and then format as test methods. Mockito provides special methods to do so. Take a look at the following code snippet.
@@ -322,5 +323,39 @@ public class MathApplicationTester {
       //then
       Assert.assertEquals(result,30.0,0);   
    }
+}
+```
+
+### 12) Timeout option to test if a method is called within stipulated time frame
+
+Mockito provides a special Timeout option to test if a method is called within stipulated time frame.
+
+```java
+//passes when add() is called within 100 ms.
+verify(calcService,timeout(100)).add(20.0,10.0);
+```
+
+```java
+@Test
+public void testAddAndSubtract(){
+
+    //add the behavior to add numbers
+    when(calcService.add(20.0,10.0)).thenReturn(30.0);
+
+    //subtract the behavior to subtract numbers
+    when(calcService.subtract(20.0,10.0)).thenReturn(10.0);
+
+    //test the subtract functionality
+    Assert.assertEquals(mathApplication.subtract(20.0, 10.0),10.0,0);
+
+    //test the add functionality
+    Assert.assertEquals(mathApplication.add(20.0, 10.0),30.0,0);
+
+    //verify call to add method to be completed within 100 ms
+    verify(calcService, timeout(100)).add(20.0,10.0);
+
+    //invocation count can be added to ensure multiplication invocations
+    //can be checked within given timeframe
+    verify(calcService, timeout(100).times(1)).subtract(20.0,10.0);
 }
 ```
