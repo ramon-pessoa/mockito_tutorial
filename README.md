@@ -278,3 +278,47 @@ public void testAddAndSubtract(){
    Assert.assertEquals(mathApplication.add(20.0, 10.0),30.0,0);
 }
 ```
+### 11) Behavior Driven Development in Mockito
+
+Behavior Driven Development is a style of writing tests uses given, when and then format as test methods. Mockito provides special methods to do so. Take a look at the following code snippet.
+
+```java
+//Given
+given(calcService.add(20.0,10.0)).willReturn(30.0);
+
+//when
+double result = calcService.add(20.0,10.0);
+
+//then
+Assert.assertEquals(result,30.0,0);
+```
+
+```java
+// @RunWith attaches a runner with the test class to initialize the test data
+@RunWith(MockitoJUnitRunner.class)
+public class MathApplicationTester {
+	
+   private MathApplication mathApplication;
+   private CalculatorService calcService;
+
+   @Before
+   public void setUp(){
+      mathApplication = new MathApplication();
+      calcService = mock(CalculatorService.class);
+      mathApplication.setCalculatorService(calcService);
+   }
+
+   @Test
+   public void testAdd(){
+
+      //Given
+      given(calcService.add(20.0,10.0)).willReturn(30.0);
+
+      //when
+      double result = calcService.add(20.0,10.0);
+
+      //then
+      Assert.assertEquals(result,30.0,0);   
+   }
+}
+```
