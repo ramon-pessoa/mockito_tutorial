@@ -264,18 +264,17 @@ Here we've reset mock object. MathApplication makes use of calcService and after
 
 ```java
 @Test
-    public void testAddAndSubtract(){
+public void testAddAndSubtract(){
+   //add the behavior to add numbers
+   when(calcService.add(20.0,10.0)).thenReturn(30.0);
 
-        //add the behavior to add numbers
-        when(calcService.add(20.0,10.0)).thenReturn(30.0);
+   //test the add functionality
+   Assert.assertEquals(mathApplication.add(20.0, 10.0),30.0,0);
 
-        //test the add functionality
-        Assert.assertEquals(mathApplication.add(20.0, 10.0),30.0,0);
+   //reset the mock
+   reset(calcService);
 
-        //reset the mock
-        reset(calcService);
-
-        //test the add functionality after resetting the mock
-        Assert.assertEquals(mathApplication.add(20.0, 10.0),30.0,0);
-    }
+   //test the add functionality after resetting the mock
+   Assert.assertEquals(mathApplication.add(20.0, 10.0),30.0,0);
+}
 ```
