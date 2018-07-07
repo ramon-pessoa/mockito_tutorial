@@ -141,3 +141,16 @@ public void testAdd(){
   doThrow(new RuntimeException("Add operation not implemented")).when(calcService).add(10.0,20.0);
 }
 ```
+
+### 7 Takes care of the order of method calls
+
+Mockito provides Inorder class which takes care of the order of method calls that the mock is going to make in due course of its action.
+
+```java
+//create an inOrder verifier for a single mock
+InOrder inOrder = inOrder(calcService);
+
+//following will make sure that add is first called then subtract is called.
+inOrder.verify(calcService).add(20.0,10.0);
+inOrder.verify(calcService).subtract(20.0,10.0);
+```
